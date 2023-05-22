@@ -31,6 +31,8 @@ public class App {
         System.out.println("Fatura: ");
         System.out.println("Preço do aluguel: R$" + rentalBookService.getRentalPrice());
 
+        System.out.println("Data: " + fmt.format(finish));
+
         sc.close();
     }
 }
