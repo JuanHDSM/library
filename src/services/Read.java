@@ -31,11 +31,6 @@ public class Read {
             e.printStackTrace();
             throw new DbException(e.getMessage());
         }
-        finally {
-            DB.closeResultSet(rs);
-            DB.closeStatement(st);
-            DB.closeConnection();
-        }
     }
 
     public static void allBooks(){
@@ -66,11 +61,6 @@ public class Read {
         catch (SQLException e) {
             e.printStackTrace();
             throw new DbException(e.getMessage());
-        }
-        finally {
-            DB.closeResultSet(rs);
-            DB.closeStatement(st);
-            DB.closeConnection();
         }
     }
 }
