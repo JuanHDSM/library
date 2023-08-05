@@ -13,9 +13,7 @@ public class Create {
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.FRENCH);
 
-    public Create(String name) {
-        createAuthor();
-    }
+    public Create() {}
 
     public static void createAuthor() {
 
