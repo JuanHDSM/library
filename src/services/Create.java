@@ -1,16 +1,17 @@
 package services;
 
-import java.net.ConnectException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Scanner;
+import java.sql.*;
+
+import java.text.*;
+
+import java.util.*;
 
 import db.*;
 
+
 public class Create {
 
-
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.FRENCH);
 
     public Create(String name) {
         createAuthor();
@@ -23,7 +24,7 @@ public class Create {
         Scanner sc = new Scanner(System.in);
 
 
-        System.out.println("Enter author name: ");
+        System.out.print("Enter author name: ");
         String name = sc.nextLine();
 
         try {
@@ -37,5 +38,45 @@ public class Create {
         }
     }
 
+    public static void createBook() throws ParseException {
+        Scanner sc = new Scanner(System.in);
+
+        Connection conn = null;
+        PreparedStatement st = null;
+
+        System.out.println("Enter data book:");
+        System.out.print("Book name: ");
+        String name = sc.nextLine();
+        System.out.print("Release year: ");
+        String releaseYear = sc.next();
+        sc.nextLine();
+        System.out.print("Sinopse: ");
+        String sinopse = sc.nextLine();
+        System.out.print("Author id: ");
+        int AuthorId = sc.nextInt();
+
+
+        try{
+            conn = DB.getConnection();
+            st = conn.prepareStatement("INSERT INTO book" +
+                    " (Name, ReleaseYear, Sinopse, AuthorId) " +
+                    "VALUES " +
+                    "(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+
+            st.setString(1, name);
+            st.setDate(2, new java.sql.Date(sdf.parse(releaseYear).getTime()));
+            st.setString(3, sinopse);
+            st.setInt(4, AuthorId);
+            st.executeUpdate();
+
+        } catch (ParseException | SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeConnection();
+            DB.closeStatement(st);
+        }
+
+    }
 
 }
