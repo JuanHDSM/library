@@ -18,6 +18,7 @@ public class Delete {
 
         Read.allAuthor();
 
+        System.out.println();
         System.out.print("Enter id author: ");
         int id = sc.nextInt();
 
@@ -35,7 +36,7 @@ public class Delete {
 
             System.out.println("Done! Id = " + id + " was deleted!");
         } catch (SQLException e) {
-            throw new DbIntegrityException(e.getMessage());
+            throw new DbIntegrityException("Autor não pode ser deletado! Faz referência a um tipo livro.");
         }
     }
 
@@ -48,6 +49,7 @@ public class Delete {
 
         Read.allBooks();
 
+        System.out.println();
         System.out.print("Enter id author: ");
         int id = sc.nextInt();
 

@@ -1,14 +1,12 @@
 package services;
 
+import application.*;
+
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import db.*;
 
 public class Read {
-
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 
     public Read() {};
 
@@ -31,6 +29,9 @@ public class Read {
             e.printStackTrace();
             throw new DbException(e.getMessage());
         }
+        finally {
+            UI.clearScreen();
+        }
     }
 
     public static void allBooks(){
@@ -46,7 +47,8 @@ public class Read {
             rs = st.executeQuery("select * from book");
 
             while (rs.next()) {
-                System.out.println(rs.getInt("Id")
+                System.out.println(
+                        rs.getInt("Id")
                         + ", "
                         + rs.getString("Name")
                         + ", "
@@ -61,6 +63,8 @@ public class Read {
         catch (SQLException e) {
             e.printStackTrace();
             throw new DbException(e.getMessage());
+        } finally {
+            UI.clearScreen();
         }
     }
 }
